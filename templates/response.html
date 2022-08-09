@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block body %} 
+  <p>Total: {{ totals[0] }} - Pending: {{ totals[1] }} - Other: {{ totals[2] }}</p>
+  <p> 
+  {% if totals[1] > 0 %}
+    {% for i in pending %} 
+      <table class='main'>
+        <tr class='strip'>
+          <!---------------------------------------------------------------------------------------------->
+          <th>Order Id: {{i['_id']}}</th><!--|-->  <th> </th>  <!--|--><th>{{i['status']}}</th>
+          <!---------------------------------------------------------------------------------------------->
+        </tr>
+        <tr>
+          <td>Maker:</td>                       <td>    </td>         <td>Recipient:</td>
+        </tr>
+        <tr>
+          <td>{{i['maker']}}</td>               <td> ➟ </td>          <td>{{i['recipient']}}</td>
+        </tr>
+        <tr>
+          <td>Token-In</td>                     <td>    </td>         <td>Token-Out:</td>
+        </tr>
+        <tr>
+          <td>{{i['tokenIn']}}</td>             <td> ➟ </td>          <td>{{i['tokenOut']}}</td>
+        </tr>
+         <tr>
+          <td>Symbol In:</td>                   <td>    </td>         <td>Symbol Out:</td>
+        </tr>
+        <tr>
+          <td>{{i['tokenInSymbol']}}</td>       <td> ➟ </td>          <td>{{i['tokenOutSymbol']}}</td>
+        </tr>
+        <tr>
+          <td>Amount In:</td>                   <td>    </td>          <td>Amount Out:</td>
+        </tr>
+        <tr>
+          <td>{{i['amountIn']}}</td>            <td> ➟ </td>          <td>{{i['amountOut']}}</td>
+        </tr>
+        <tr>
+          <td>Token-In Decimal:</td>            <td>   </td>          <td>Token-Out Decimal:</td>
+        </tr>
+        <tr>
+          <td>{{i['tokenInDecimals']}}</td>     <td> ➟ </td>          <td>{{i['tokenOutDecimals']}}</td>
+        </tr>
+        <tr>
+          <td>Start Time:</td>                  <td>   </td>          <td>Stop Time:</td>
+        </tr>
+        <tr>
+          <td>{{i['startTime']}}</td>           <td> ➟ </td>          <td>{{i['stopTime']}}</td>
+        </tr>
+        <tr>
+          <td>Stop Price:</td>                  <td>   </td>          <td></td>
+        </tr>
+        <tr>
+          <td>{{i['stopPrice']}}</td>           <td>   </td>          <td></td>
+        </tr>
+          <!---------------------------------------------------------------------------------------------->
+      </table>
+      </p>
+       <p>
+        Sig:         <br>
+        v: {{i['v']}}<br>
+        r: {{i['r']}}<br>
+        s: {{i['s']}}<br>
+      </p>
+      <p>
+        Oracle Data: <br>
+        oracleAddress: {{i['oracleAddress']}} <br>
+        oracleData: {{i['oracleData']}}       <br>
+        orderTypeHash: {{i['oracleTypeHash']}}
+      </p>
+        {% endfor %}
+      {% endif %}
+      {% if totals[2] > 0 %}
+        {% for i in other %}
+      <p>
+      <table class='main'>
+        <tr class='strip'>
+          <!---------------------------------------------------------------------------------------------->
+          <th>Order Id: {{i['_id']}}</th><!--|--><th>   </th><!--|--><th>{{i['status']}}</th>
+          <!---------------------------------------------------------------------------------------------->
+        </tr>
+        <tr>
+          <td>Maker:</td>                       <td>   </td>          <td>Recipient:</td>
+        </tr>
+        <tr>
+          <td>{{i['maker']}}</td>               <td> ➟ </td>         <td>{{i['recipient']}}</td>
+        </tr>
+        <tr>
+          <td>Token-In</td>                     <td>    </td>         <td>Token-Out:</td>
+        </tr>
+        <tr>
+          <td>{{i['tokenIn']}}</td>             <td> ➟ </td>         <td>{{i['tokenOut']}}</td>
+        </tr>
+         <tr>
+          <td>Symbol In:</td>                   <td>    </td>         <td>Symbol Out:</td>
+        </tr>
+        <tr>
+          <td>{{i['tokenInSymbol']}}</td>       <td> ➟ </td>         <td>{{i['tokenOutSymbol']}}</td>
+        </tr>
+        <tr>
+          <td>Amount In:</td>                   <td>    </td>         <td>Amount Out:</td>
+        </tr>
+        <tr>
+          <td>{{i['amountIn']}}</td>            <td> ➟ </td>         <td>{{i['amountOut']}}</td>
+        </tr>
+        <tr>
+          <td>Token-In Decimal:</td>            <td>    </td>         <td>Token-Out Decimal:</td>
+        </tr>
+        <tr>
+          <td>{{i['tokenInDecimals']}}</td>     <td> ➟ </td>          <td>{{i['tokenOutDecimals']}}</td>
+        </tr>
+        <tr>
+          <td>Start Time:</td>                  <td>   </td>          <td>Stop Time:</td>
+        </tr>
+        <tr>
+          <td>{{i['startTime']}}</td>           <td> ➟ </td>          <td>{{i['stopTime']}}</td>
+        </tr>
+        <tr>
+          <td>Stop Price</td>                   <td>   </td>          <td></td>
+        </tr>
+      <tr>
+          <td>{{i['stopPrice']}}</td>           <td>   </td>          <td></td>
+        </tr>
+          <!---------------------------------------------------------------------------------------------->
+      </table>
+      <p>
+      <p>
+        Sig:         <br>
+        v: {{i['v']}}<br>
+        r: {{i['r']}}<br>
+        s: {{i['s']}}<br>
+      </p>
+      <p>
+        Oracle Data: <br>
+        oracleAddress: {{i['oracleAddress']}}  <br>
+        oracleData: {{i['oracleData']}}        <br>
+        orderTypeHash: {{i['oracleTypeHash']}}
+      </p>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
