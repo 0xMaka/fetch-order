@@ -1,6 +1,4 @@
 from flask import Flask, render_template
-import requests 
-import random
 
 from forms import FetchOrder
 from config import get_secret
