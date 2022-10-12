@@ -1,5 +1,11 @@
 import requests
-import json 
+import json
+
+from web3 import Web3 as w3
+def RC(address):
+  if w3.isChecksumAddress(address) == False:
+    address = w3.toChecksumAddress(address)
+  return address
 
 LIMIT = 'https://limit-order-ffo5rqmjnq-uc.a.run.app/orders/view'
 
@@ -26,24 +32,24 @@ def _store(_json):
     return 1
 
 def _order(_address, _chainId):
-  query = {   
-    'address': _address,     
-    'chainId': _chainId,     
-    'page': 1,     
-    'pendingPage': 1 
+  query = {
+    'address': _address,
+    'chainId': _chainId,
+    'page': 1,
+    'pendingPage': 1
   }
   r = requests.post(LIMIT, json=query)
   return r.json()
 
 def store_limit_order(_address, _chainId):
-  assert _store(_order(_address, _chainId)) == 1, '0'
+  assert _store(_order(RC(_address), _chainId)) == 1, '0'
 
 def fetch_and_index(_address, _chainId):
-  j = _order(_address, _chainId)
+  j = _order(RC(_address), _chainId)
   data, pending_orders, other_orders = _sort(j)
-  total_pending = pending_orders['totalPendingOrders'] 
-  total_other = other_orders['totalOrders'] 
-
+  total_pending = pending_orders['totalPendingOrders']
+  total_other = other_orders['totalOrders']
+  
   total = total_pending + total_other
   if total == 0:
     return [[0, 0, 0], 0, 0]
